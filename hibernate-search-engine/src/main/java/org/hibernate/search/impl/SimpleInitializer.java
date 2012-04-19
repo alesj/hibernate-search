@@ -54,7 +54,7 @@ public final class SimpleInitializer implements InstanceInitializer {
 	@Override
 	@SuppressWarnings( "unchecked" )
 	public <T> Class<T> getClass(T entity) {
-		return (Class<T>) entity.getClass();
+		return (Class<T>) (entity instanceof Class ? entity : entity.getClass());
 	}
 
 	@Override
