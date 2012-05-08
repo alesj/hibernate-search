@@ -68,17 +68,15 @@ public class BackendFactory {
 			backendQueueProcessor = new BlackHoleBackendQueueProcessor();
 		}
 		else if ( "jgroupsMaster".equals( backend ) ) {
-				backendQueueProcessor = new JGroupsBackendQueueProcessor( new MasterNodeSelector() );
+            backendQueueProcessor = new JGroupsBackendQueueProcessor( new MasterNodeSelector() );
 		}
 		else if ( "jgroupsSlave".equals( backend ) ) {
-				backendQueueProcessor = new JGroupsBackendQueueProcessor( new SlaveNodeSelector() );
+            backendQueueProcessor = new JGroupsBackendQueueProcessor( new SlaveNodeSelector() );
 		}
-		//TODO: enable it when considered less experimental:
-		//else if ( "jgroups".equals( backend ) ) {
-		//	backendQueueProcessor = new JGroupsBackendQueueProcessor(
-		//			new AutoNodeSelector( indexManager.getIndexName() ) );
-		//}
-		else {
+        else if ( "jgroups".equals( backend ) ) {
+			backendQueueProcessor = new JGroupsBackendQueueProcessor( new AutoNodeSelector( indexManager.getIndexName() ) );
+		}
+        else {
 			backendQueueProcessor = ClassLoaderHelper.instanceFromName(
 					BackendQueueProcessor.class,
 					backend, BackendFactory.class, "processor"
